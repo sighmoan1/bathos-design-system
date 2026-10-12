@@ -1,28 +1,28 @@
 :root {
-  --color-text: #231b2b;
-  --color-text-muted: #62576b;
-  --color-text-inverse: #faf7ff;
-  --color-background: #f4f3f5;
-  --color-surface: #fffdfb;
-  --color-surface-muted: #ece9ef;
-  --color-surface-inverse: #2d2237;
-  --color-border: #8e8595;
-  --color-divider: #d9d2df;
-  --color-primary: #6c304e;
-  --color-primary-hover: #4d2037;
-  --color-accent: #68449b;
-  --color-accent-light: #b599ed;
-  --color-accent-surface: #eee7f8;
-  --color-ocean: #305f64;
-  --color-ocean-light: #9bc4c5;
+  --color-text: #202329;
+  --color-text-muted: #545a60;
+  --color-text-inverse: #fffdf8;
+  --color-background: #f1efe9;
+  --color-surface: #fffcf7;
+  --color-surface-muted: #e9e6dd;
+  --color-surface-inverse: #17262d;
+  --color-border: #777970;
+  --color-divider: #d2cec3;
+  --color-primary: #762a39;
+  --color-primary-hover: #571b29;
+  --color-accent: #a9412e;
+  --color-accent-light: #d37b4c;
+  --color-accent-surface: #f5e8df;
+  --color-ocean: #285b67;
+  --color-ocean-light: #88b8bc;
   --color-ocean-surface: #e3eff0;
-  --color-success: #315e50;
-  --color-success-surface: #e4eee8;
-  --color-warning: #77571e;
-  --color-warning-surface: #fff0cc;
-  --color-danger: #a02d48;
-  --color-danger-surface: #f9e6eb;
-  --color-focus: #f1c75b;
+  --color-success: #285a45;
+  --color-success-surface: #e5efe7;
+  --color-warning: #795515;
+  --color-warning-surface: #f8edcf;
+  --color-danger: #982d36;
+  --color-danger-surface: #f6e4e2;
+  --color-focus: #f1b93c;
 
   --font-body: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
@@ -47,8 +47,8 @@
   --radius-small: 4px;
   --radius-medium: 10px;
   --radius-large: 16px;
-  --shadow-soft: 0 8px 28px rgb(35 27 43 / 6%);
-  --shadow-raised: 0 16px 40px rgb(35 27 43 / 10%);
+  --shadow-soft: 0 8px 28px rgb(32 35 41 / 6%);
+  --shadow-raised: 0 16px 40px rgb(32 35 41 / 10%);
   --duration-fast: 140ms;
   --ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
   --measure: 65ch;
@@ -56,7 +56,7 @@
   --reading-width: 760px;
   --target-size: 44px;
 
-  /* Compatibility aliases for existing site and map components. */
+  /* Compatibility aliases retained for existing Bathos pages and maps. */
   --ink: var(--color-text);
   --paper: var(--color-background);
   --white: var(--color-surface);
