@@ -22,15 +22,16 @@ const notices=['info','success','warning','danger'].map(t=>`<aside class="notice
 const html=(await readFile('site/index.html','utf8'))
   .replaceAll('{{version}}',version)
   .replace('{{palette}}',siteSettings.palette)
+  .replace('{{palette-name}}',paletteLabels[siteSettings.palette])
   .replace('{{palette-options}}',paletteOptions)
   .replace('{{swatches}}',swatches)
   .replace('{{palettes}}',palettes)
   .replace('{{notices}}',notices);
-const css=(await Promise.all(['styles/tokens.css','styles/base.css','styles/components.css','styles/palettes.css','site/catalogue.css'].map(f=>readFile(f,'utf8')))).join('\\n');
+const css=(await Promise.all(['styles/tokens.css','styles/base.css','styles/components.css','styles/palettes.css','site/catalogue.css'].map(f=>readFile(f,'utf8')))).join(String.fromCharCode(10));
 const palettePreviewJs=await readFile('site/palette-preview.js','utf8');
 const assets={'/':['text/html; charset=utf-8',html],'/catalogue.css':['text/css; charset=utf-8',css],'/palette-preview.js':['application/javascript; charset=utf-8',palettePreviewJs],'/version.json':['application/json',JSON.stringify({name:'@bathos/design-system',version})]};
 await mkdir('site-out',{recursive:true});
 await writeFile('site-out/index.html',html); await writeFile('site-out/catalogue.css',css); await writeFile('site-out/palette-preview.js',palettePreviewJs); await writeFile('site-out/version.json',assets['/version.json'][1]);
-const worker=`const assets = ${JSON.stringify(assets)};\\n${await readFile('scripts/worker-handler.mjs','utf8')}`;
+const worker='const assets = '+JSON.stringify(assets)+';'+String.fromCharCode(10)+await readFile('scripts/worker-handler.mjs','utf8');
 await writeFile('worker.generated.mjs',worker);
-console.log(`Built catalogue and Worker for v${version}`);
+console.log('Built catalogue and Worker for v'+version);
