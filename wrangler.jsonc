@@ -1,0 +1,8 @@
+{
+  "name": "bathos-design-system",
+  "main": "worker.generated.mjs",
+  "compatibility_date": "2026-10-12",
+  "workers_dev": false,
+  "routes": [{ "pattern": "design.bathos.org", "custom_domain": true }],
+  "observability": { "enabled": true, "traces": { "enabled": true } }
+}

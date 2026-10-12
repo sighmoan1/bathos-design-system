@@ -1,0 +1,36 @@
+{
+  "name": "@bathos/design-system",
+  "version": "1.0.0",
+  "description": "Shared Bathos design tokens and accessible React components",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles/*": "./styles/*"
+  },
+  "files": [
+    "dist",
+    "styles",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && node scripts/build-site.mjs",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "pack:release": "npm pack"
+  },
+  "peerDependencies": {
+    "react": ">=18 <20"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "typescript": "5.9.3",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  }
+}
