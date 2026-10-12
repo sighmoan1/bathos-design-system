@@ -10,7 +10,7 @@ export default {
       'Cache-Control':'public, max-age=300',
       'X-Content-Type-Options':'nosniff',
       'Referrer-Policy':'strict-origin-when-cross-origin',
-      'Content-Security-Policy':"default-src 'none'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+      'Content-Security-Policy':"default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
     }});
   }
 };
