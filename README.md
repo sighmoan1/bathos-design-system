@@ -26,12 +26,8 @@ The optional Worker deploy workflow requires repository secret `CLOUDFLARE_API_T
 
 Consumer update workflows check stable releases on a schedule and on demand. They open one update PR per branch, run consumer verification before requesting adoption, and rebuild/deploy after merge. Update PR creation needs an authorised repository token in `DESIGN_SYSTEM_UPDATE_TOKEN` if repository settings disallow GITHUB_TOKEN-created PRs. A dedicated token also allows downstream PR checks to run: GitHub suppresses most new workflow events created using GITHUB_TOKEN. Never automatically merge a major upgrade. No runtime remote stylesheet or floating `latest` dependency is used.
 
-## Inventory and limits
+## Adoption contract
 
-- bathos.org and www: sighmoan1/bathos; Cloudflare Pages, initially manual upload.
-- cultivate.bathos.org: sighmoan1/cultivate; Cloudflare Pages, Git-connected main and preview deployments.
-- about-demo, delegate-demo, hmrc-demo, login-demo, whenisbins-demo: sighmoan1/govuk-delegate-starter; five loopback services behind one local Cloudflare Tunnel. These require the local operator to rebuild/restart services; a GitHub merge alone is not a deployment.
-- pdcanon.bathos.org: separate Cloudflare Tunnel; source/operator not yet identified.
-- gas.bathos.org: Tailscale-only dashboard; source/operator not yet identified.
+Each consuming property owns a pinned package version, a service-specific theme adapter, verification, and a deployment path. Use namespaced tokens when an existing framework owns generic CSS variable names. Preserve established branding and interaction behaviour through explicit adapters. New properties should start with the shared tokens and controls.
 
-New properties must adopt a pinned package, verification and update/deployment workflow. A DNS record alone cannot cause design changes to propagate to an unrelated application.
+Release upgrades should run the consumer's required checks and deployed-preview verification before merging. Major upgrades require deliberate migration. Retain the previous version and deployment for rollback.
