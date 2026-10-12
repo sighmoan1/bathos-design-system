@@ -1,33 +1,35 @@
 # Bathos design system
 
-Canonical catalogue: https://design.bathos.org. Source extracted from Cultivate's deployed design system. This package has no runtime dependency on the catalogue or Cloudflare.
+Canonical catalogue: https://design.bathos.org. The versioned package is the source of truth. It has no runtime dependency on the catalogue or Cloudflare.
 
 ## Consume a release
 
-Install the release archive as `@bathos/design-system` and commit the resulting lockfile:
+Install an exact release archive and commit the resulting lockfile:
 
 ```sh
-npm install @bathos/design-system@https://github.com/sighmoan1/bathos-design-system/releases/download/v1.0.0/bathos-design-system-1.0.0.tgz
+npm install @bathos/design-system@https://github.com/sighmoan1/bathos-design-system/releases/download/v1.1.0/bathos-design-system-1.1.0.tgz
 ```
 
-Import `styles/tokens.css`, `styles/base.css` and `styles/components.css` once for the complete light system. React exports: Button, ButtonLink (a native anchor), Field, Panel, Notice. Framework-specific navigation adapters remain in the consumer.
+Import `styles/tokens.css`, `styles/base.css`, `styles/components.css` and `styles/palettes.css` once. Set `data-bathos-palette` on the document root to choose one of the three palettes: `deep-water-red`, `stone-vermilion` or `ink-teal`. Each app bundles its selected CSS locally. The catalogue previews all three palettes side by side.
 
-For existing themes, use `styles/foundation.css`: every token is namespaced `--bathos-*`, avoiding Tailwind and GOV.UK token collisions. Map a deliberate subset into the existing service theme. Preserve service-specific layouts, focus rules and interaction behaviour. Cultivate continues to own its evidence status vocabulary, maps and page layout.
+For existing themes, import `styles/foundation.css` and `styles/palettes.css`. Tokens are namespaced `--bathos-*`; set the same document-root attribute, then map a deliberate subset into the service theme. Preserve service layouts and interaction behaviour.
+
+## App deployment settings
+
+`deployments.json` is the central map from each registered app to an exact package version and palette. Update one app without changing the others. Consumer update workflows read the app's entry, confirm the exact stable release archive exists, and prepare the app's build with that version and palette. Downgrades can be used for a deliberate rollback. No consumer loads a floating `latest` version or remote stylesheet at runtime.
+
+`npm run validate:deployments` checks the manifest names, repositories, pinned versions and palette IDs. Register an app only after it has a build path for the shared package.
 
 ## Releases and deployment
 
-`npm ci && npm test` builds the typed ESM package and catalogue. Commit the generated `dist/` outputs so package archives and source tags are directly installable. CI verifies generated output matches source.
+`npm ci && npm test` builds the typed ESM package and catalogue. Commit generated `dist/` outputs when component exports change. CI verifies generated output matches source.
 
-Use semantic versions. Change package.json, rebuild dist, open a PR and run checks. On approved main, create an immutable `vX.Y.Z` GitHub release. The release workflow verifies version/tag agreement, attaches the package archive and deploys the catalogue. Roll back consumers by reverting their version/lockfile PR; roll back the catalogue by deploying the prior release.
+Use semantic versions. Patch releases fix defects; minor releases add compatible features; major releases require deliberate migration. The release workflow verifies version/tag agreement and attaches the package archive. Consumer apps verify and adopt their pinned version through their own build and deployment path.
 
-The canonical catalogue uses Git-connected Cloudflare Pages (`bathos-design-system`, build `npm test`, output `site-out`). Verified main changes rebuild and deploy automatically using the existing Cloudflare GitHub integration; no new CI deployment secret is required. The Worker configuration is an optional alternative, not the active canonical deployment.
+The catalogue uses Git-connected Cloudflare Pages (`bathos-design-system`, build `npm test`, output `site-out`). A catalogue outage cannot affect apps because they bundle release files locally.
 
-The optional Worker deploy workflow requires repository secret `CLOUDFLARE_API_TOKEN` (Workers Scripts Edit and Zone Read for the Bathos account/zone) and variable `CLOUDFLARE_ACCOUNT_ID`. Initial custom-domain attachment can be managed through the connected Cloudflare API; deployment need not modify other Bathos DNS records.
+## Components and accessibility
 
-Consumer update workflows check stable releases on a schedule and on demand. They open one update PR per branch, run consumer verification before requesting adoption, and rebuild/deploy after merge. Update PR creation needs an authorised repository token in `DESIGN_SYSTEM_UPDATE_TOKEN` if repository settings disallow GITHUB_TOKEN-created PRs. A dedicated token also allows downstream PR checks to run: GitHub suppresses most new workflow events created using GITHUB_TOKEN. Never automatically merge a major upgrade. No runtime remote stylesheet or floating `latest` dependency is used.
+React exports: Button, ButtonLink, Field, Panel and Notice. Buttons keep native disabled behaviour, links navigate, and fields expose help and error text. Pair colours with text, shape or placement. Test text at 4.5:1 and meaningful interface boundaries at 3:1. Focus uses a high-contrast two-tone outline. Controls have at least a 44px target.
 
-## Adoption contract
-
-Each consuming property owns a pinned package version, a service-specific theme adapter, verification, and a deployment path. Use namespaced tokens when an existing framework owns generic CSS variable names. Preserve established branding and interaction behaviour through explicit adapters. New properties should start with the shared tokens and controls.
-
-Release upgrades should run the consumer's required checks and deployed-preview verification before merging. Major upgrades require deliberate migration. Retain the previous version and deployment for rollback.
+Keep service-specific status vocabulary and page layouts in consuming apps. Use semantic tokens in new styles and preserve compatibility aliases while existing pages migrate.
