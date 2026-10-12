@@ -6,9 +6,11 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import {Button,ButtonLink,Field,Notice} from '../dist/index.js';
 import worker from '../worker.generated.mjs';
 test('buttons retain native disabled behaviour and links navigate',()=>{
- assert.match(renderToStaticMarkup(createElement(Button,{disabled:true},'Save')),/type="button"/);
- assert.match(renderToStaticMarkup(createElement(Button,{disabled:true},'Save')),/disabled=""/);
- assert.match(renderToStaticMarkup(createElement(ButtonLink,{href:'/guide'},'Guide')),/href="\\/guide"/);
+ const disabled=renderToStaticMarkup(createElement(Button,{disabled:true},'Save'));
+ assert.match(disabled,/type="button"/);
+ assert.match(disabled,/disabled=""/);
+ const link=renderToStaticMarkup(createElement(ButtonLink,{href:'/guide'},'Guide'));
+ assert.ok(link.includes('href="/guide"'));
 });
 test('field preserves caller descriptions alongside errors and help',()=>{
  const html=renderToStaticMarkup(createElement(Field,{id:'outcome',label:'Outcome',help:'Help',error:'Required','aria-describedby':'existing'}));
@@ -36,14 +38,14 @@ test('catalogue previews palettes across the whole page and owns a site-local de
  assert.equal(settings.palette,'deep-water-red');
  const response=await worker.fetch(new Request('https://design.bathos.org/'));
  const page=await response.text();
- assert.match(page,/id="palette-preview"/);
- assert.match(page,/Preview this site with/);
- assert.match(page,/Reset to published palette/);
- assert.match(page,/Preview deep water red across catalogue/);
- assert.match(page,/Preview stone vermilion across catalogue/);
- assert.match(page,/Preview ink teal across catalogue/);
- assert.match(page,/data-bathos-palette="deep-water-red"/);
- assert.doesNotMatch(page,/deployments\\.json/);
+ assert.ok(page.includes('id="palette-preview"'));
+ assert.ok(page.includes('Preview this site with'));
+ assert.ok(page.includes('Reset to published palette'));
+ assert.ok(page.includes('Preview deep water red across catalogue'));
+ assert.ok(page.includes('Preview stone vermilion across catalogue'));
+ assert.ok(page.includes('Preview ink teal across catalogue'));
+ assert.ok(page.includes('data-bathos-palette="deep-water-red"'));
+ assert.ok(!page.includes('deployments.json'));
  const preview=await worker.fetch(new Request('https://design.bathos.org/palette-preview.js'));
- assert.match(await preview.text(),/root\\.dataset\\.bathosPalette = id/);
+ assert.ok((await preview.text()).includes('root.dataset.bathosPalette = id'));
 });
