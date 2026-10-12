@@ -1,6 +1,6 @@
 /* Palette selectors apply to the document root at build time.
    Apps bundle this file locally and set data-bathos-palette on <html>. */
-:root[data-bathos-palette="deep-water-red"] {
+[data-bathos-palette="deep-water-red"] {
   --color-text:#202329; --color-text-muted:#545a60; --color-text-inverse:#fffdf8;
   --color-background:#f1efe9; --color-surface:#fffcf7; --color-surface-muted:#e9e6dd;
   --color-surface-inverse:#17262d; --color-border:#777970; --color-divider:#d2cec3;
@@ -11,7 +11,7 @@
   --color-warning:#795515; --color-warning-surface:#f8edcf;
   --color-danger:#982d36; --color-danger-surface:#f6e4e2; --color-focus:#f1b93c;
 }
-:root[data-bathos-palette="stone-vermilion"] {
+[data-bathos-palette="stone-vermilion"] {
   --color-text:#28231e; --color-text-muted:#5f5950; --color-text-inverse:#fffdf8;
   --color-background:#f3eee4; --color-surface:#fffcf7; --color-surface-muted:#e9e0d2;
   --color-surface-inverse:#32271f; --color-border:#867968; --color-divider:#d6c8b5;
@@ -22,7 +22,7 @@
   --color-warning:#79500d; --color-warning-surface:#faedcf;
   --color-danger:#982e38; --color-danger-surface:#f6e4e1; --color-focus:#ad6500;
 }
-:root[data-bathos-palette="ink-teal"] {
+[data-bathos-palette="ink-teal"] {
   --color-text:#1d2930; --color-text-muted:#52616a; --color-text-inverse:#f8fbfc;
   --color-background:#eef2f2; --color-surface:#fcfefd; --color-surface-muted:#e2e9ea;
   --color-surface-inverse:#12252d; --color-border:#75858b; --color-divider:#cbd6d8;
