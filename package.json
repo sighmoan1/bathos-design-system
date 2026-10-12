@@ -1,6 +1,6 @@
 {
   "name": "@bathos/design-system",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Shared Bathos design tokens and accessible React components",
   "type": "module",
   "license": "MIT",
@@ -21,8 +21,9 @@
   ],
   "scripts": {
     "build": "tsc && node scripts/build-site.mjs",
-    "test": "npm run build && node --test tests/*.test.mjs",
-    "pack:release": "npm pack"
+    "test": "npm run build && npm run validate:deployments && node --test tests/*.test.mjs",
+    "pack:release": "npm pack",
+    "validate:deployments": "node scripts/validate-deployments.mjs"
   },
   "peerDependencies": {
     "react": ">=18 <20"
