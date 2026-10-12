@@ -1,0 +1,59 @@
+:root {
+  --bathos-color-text: #231b2b;
+  --bathos-color-text-muted: #62576b;
+  --bathos-color-text-inverse: #faf7ff;
+  --bathos-color-background: #f4f3f5;
+  --bathos-color-surface: #fffdfb;
+  --bathos-color-surface-muted: #ece9ef;
+  --bathos-color-surface-inverse: #2d2237;
+  --bathos-color-border: #8e8595;
+  --bathos-color-divider: #d9d2df;
+  --bathos-color-primary: #6c304e;
+  --bathos-color-primary-hover: #4d2037;
+  --bathos-color-accent: #68449b;
+  --bathos-color-accent-light: #b599ed;
+  --bathos-color-accent-surface: #eee7f8;
+  --bathos-color-ocean: #305f64;
+  --bathos-color-ocean-light: #9bc4c5;
+  --bathos-color-ocean-surface: #e3eff0;
+  --bathos-color-success: #315e50;
+  --bathos-color-success-surface: #e4eee8;
+  --bathos-color-warning: #77571e;
+  --bathos-color-warning-surface: #fff0cc;
+  --bathos-color-danger: #a02d48;
+  --bathos-color-danger-surface: #f9e6eb;
+  --bathos-color-focus: #f1c75b;
+
+  --bathos-font-body: "Aptos", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --bathos-font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --bathos-text-small: 0.875rem;
+  --bathos-text-body: 1.0625rem;
+  --bathos-text-lead: clamp(1.2rem, 2vw, 1.45rem);
+  --bathos-text-heading: clamp(2.5rem, 5.5vw, 3.8rem);
+  --bathos-weight-body: 400;
+  --bathos-weight-strong: 700;
+  --bathos-line-body: 1.6;
+  --bathos-line-heading: 1.08;
+
+  --bathos-space-1: 0.25rem;
+  --bathos-space-2: 0.5rem;
+  --bathos-space-3: 0.75rem;
+  --bathos-space-4: 1rem;
+  --bathos-space-5: 1.5rem;
+  --bathos-space-6: 2rem;
+  --bathos-space-7: 3rem;
+  --bathos-space-8: 4rem;
+  --bathos-space-9: 6rem;
+  --bathos-radius-small: 4px;
+  --bathos-radius-medium: 10px;
+  --bathos-radius-large: 16px;
+  --bathos-shadow-soft: 0 8px 28px rgb(35 27 43 / 6%);
+  --bathos-shadow-raised: 0 16px 40px rgb(35 27 43 / 10%);
+  --bathos-duration-fast: 140ms;
+  --bathos-ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
+  --bathos-measure: 65ch;
+  --bathos-wide: 1180px;
+  --bathos-reading-width: 760px;
+  --bathos-target-size: 44px;
+
+}
