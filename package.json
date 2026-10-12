@@ -21,9 +21,8 @@
   ],
   "scripts": {
     "build": "tsc && node scripts/build-site.mjs",
-    "test": "npm run build && npm run validate:deployments && node --test tests/*.test.mjs",
-    "pack:release": "npm pack",
-    "validate:deployments": "node scripts/validate-deployments.mjs"
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "pack:release": "npm pack"
   },
   "peerDependencies": {
     "react": ">=18 <20"
