@@ -12,11 +12,11 @@ const tokens=await readFile('styles/tokens.css','utf8');
 const paletteCss=await readFile('styles/palettes.css','utf8');
 const paletteIds=['deep-water-red','stone-vermilion','ink-teal'];
 const paletteLabels=Object.fromEntries(paletteIds.map(id=>[id,id.replaceAll('-',' ')]));
-const swatches=[...tokens.matchAll(/--(color-[\\w-]+): (#[\\da-f]+);/g)].map(([,name,value])=>`<article class="swatch"><div style="--swatch:${value}" aria-hidden="true"></div><p>${name.replace('color-','').replaceAll('-',' ')}<code>${value} · --${name}</code></p></article>`).join('');
+const swatches=[...tokens.matchAll(/--(color-[\w-]+): (#[\da-f]+);/g)].map(([,name,value])=>`<article class="swatch"><div style="--swatch:${value}" aria-hidden="true"></div><p>${name.replace('color-','').replaceAll('-',' ')}<code>${value} · --${name}</code></p></article>`).join('');
 const palettes=paletteIds.map(id=>{
   const selector=`[data-bathos-palette="${id}"]`;
   const block=paletteCss.split(selector)[1]?.split('}')[0] ?? '';
-  const values=Object.fromEntries([...block.matchAll(/--(color-[\\w-]+):\\s*(#[\\da-f]+)/g)].map(([,name,value])=>[name,value]));
+  const values=Object.fromEntries([...block.matchAll(/--(color-[\w-]+):\s*(#[\da-f]+)/g)].map(([,name,value])=>[name,value]));
   const chips=['color-primary','color-accent','color-ocean','color-background'].map(name=>`<span><i style="--swatch:${values[name]}" aria-hidden="true"></i>${name.replace('color-','')}</span>`).join('');
   return `<article class="palette-option" data-bathos-palette="${id}"><h3>${paletteLabels[id]}</h3><div class="palette-swatches">${chips}</div><div class="palette-actions"><button class="button button--quiet palette-preview-button" type="button" data-preview-palette="${id}">Preview ${paletteLabels[id]} across catalogue</button><button class="button button--primary" type="button">Primary action</button><button class="button button--secondary" type="button">Secondary</button></div><div class="panel panel--accent"><h4>Selected state</h4><p>Clear contrast for text, controls and boundaries.</p></div></article>`;
 }).join('');
