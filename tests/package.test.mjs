@@ -20,6 +20,7 @@ test('static notices are not unsolicited live alerts',()=>{
 });
 test('catalogue serves expected paths, rejects writes and unknown paths',async()=>{
  assert.equal((await worker.fetch(new Request('https://design.bathos.org/'))).status,200);
+ assert.equal((await worker.fetch(new Request('https://design.bathos.org/deployments.json'))).status,200);
  assert.equal((await worker.fetch(new Request('https://design.bathos.org/toString'))).status,404);
  assert.equal((await worker.fetch(new Request('https://design.bathos.org/missing'))).status,404);
  assert.equal((await worker.fetch(new Request('https://design.bathos.org/',{method:'POST'}))).status,405);
@@ -34,4 +35,10 @@ test('catalogue exposes all three named build-time palettes and app pins',async(
  assert.equal(manifest.applications.delegate.palette,'stone-vermilion');
  assert.equal(manifest.applications.cultivate.version,'1.1.0');
  assert.equal(manifest.applications.delegate.version,'1.1.0');
+ const catalogue=await worker.fetch(new Request('https://design.bathos.org/'));
+ const page=await catalogue.text();
+ assert.match(page,/deep water red/);
+ assert.match(page,/stone vermilion/);
+ assert.match(page,/ink teal/);
+ assert.match(page,/govuk-delegate-starter/);
 });
