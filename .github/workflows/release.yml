@@ -29,13 +29,17 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: node -e 'const p=require("./package.json"); if(process.env.RELEASE_TAG!==`v${p.version}`) process.exit(1)'
       - name: Attach versioned package
-        if: github.event_name == 'release'
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
+          if [ -z "$RELEASE_TAG" ]; then RELEASE_TAG="v$(node -p 'require("./package.json").version')"; fi
           npm pack
-          gh release upload "$RELEASE_TAG" bathos-design-system-*.tgz
+          if gh release view "$RELEASE_TAG" --json assets --jq '[.assets[].name] | join("\n")' | grep -Fx "bathos-design-system-${RELEASE_TAG#v}.tgz"; then
+            echo "Immutable package already published; retaining it."
+          else
+            gh release upload "$RELEASE_TAG" bathos-design-system-*.tgz
+          fi
       - name: Deploy optional Worker target
         if: env.CLOUDFLARE_API_TOKEN != ''
         env:
