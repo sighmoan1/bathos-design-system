@@ -1,0 +1,35 @@
+/* Palette selectors apply to the document root at build time.
+   Apps bundle this file locally and set data-bathos-palette on <html>. */
+:root[data-bathos-palette="deep-water-red"] {
+  --color-text:#202329; --color-text-muted:#545a60; --color-text-inverse:#fffdf8;
+  --color-background:#f1efe9; --color-surface:#fffcf7; --color-surface-muted:#e9e6dd;
+  --color-surface-inverse:#17262d; --color-border:#777970; --color-divider:#d2cec3;
+  --color-primary:#762a39; --color-primary-hover:#571b29; --color-accent:#a9412e;
+  --color-accent-light:#d37b4c; --color-accent-surface:#f5e8df;
+  --color-ocean:#285b67; --color-ocean-light:#88b8bc; --color-ocean-surface:#e3eff0;
+  --color-success:#285a45; --color-success-surface:#e5efe7;
+  --color-warning:#795515; --color-warning-surface:#f8edcf;
+  --color-danger:#982d36; --color-danger-surface:#f6e4e2; --color-focus:#f1b93c;
+}
+:root[data-bathos-palette="stone-vermilion"] {
+  --color-text:#28231e; --color-text-muted:#5f5950; --color-text-inverse:#fffdf8;
+  --color-background:#f3eee4; --color-surface:#fffcf7; --color-surface-muted:#e9e0d2;
+  --color-surface-inverse:#32271f; --color-border:#867968; --color-divider:#d6c8b5;
+  --color-primary:#91372a; --color-primary-hover:#6c261f; --color-accent:#b64a32;
+  --color-accent-light:#da9065; --color-accent-surface:#f7e9de;
+  --color-ocean:#35636a; --color-ocean-light:#98bfc0; --color-ocean-surface:#e6f0ef;
+  --color-success:#41644b; --color-success-surface:#e7efe5;
+  --color-warning:#79500d; --color-warning-surface:#faedcf;
+  --color-danger:#982e38; --color-danger-surface:#f6e4e1; --color-focus:#ad6500;
+}
+:root[data-bathos-palette="ink-teal"] {
+  --color-text:#1d2930; --color-text-muted:#52616a; --color-text-inverse:#f8fbfc;
+  --color-background:#eef2f2; --color-surface:#fcfefd; --color-surface-muted:#e2e9ea;
+  --color-surface-inverse:#12252d; --color-border:#75858b; --color-divider:#cbd6d8;
+  --color-primary:#214f60; --color-primary-hover:#143847; --color-accent:#9c3d34;
+  --color-accent-light:#cf8067; --color-accent-surface:#f2e5e2;
+  --color-ocean:#346e72; --color-ocean-light:#9cc5c4; --color-ocean-surface:#e5f0ef;
+  --color-success:#315e50; --color-success-surface:#e4eee8;
+  --color-warning:#79530e; --color-warning-surface:#f7edcf;
+  --color-danger:#982e38; --color-danger-surface:#f6e4e1; --color-focus:#a86500;
+}
