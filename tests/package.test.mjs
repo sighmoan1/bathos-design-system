@@ -21,7 +21,9 @@ test('static notices are not unsolicited live alerts',()=>{
  assert.doesNotMatch(renderToStaticMarkup(createElement(Notice,{title:'Info'},'Message')),/role="alert"|aria-live/);
 });
 test('catalogue serves expected paths, rejects writes and unknown paths',async()=>{
- assert.equal((await worker.fetch(new Request('https://design.bathos.org/'))).status,200);
+ const home=await worker.fetch(new Request('https://design.bathos.org/'));
+ assert.equal(home.status,200);
+ assert.ok(home.headers.get('Content-Security-Policy').includes("script-src 'self'"));
  assert.equal((await worker.fetch(new Request('https://design.bathos.org/palette-preview.js'))).status,200);
  assert.equal((await worker.fetch(new Request('https://design.bathos.org/toString'))).status,404);
  assert.equal((await worker.fetch(new Request('https://design.bathos.org/missing'))).status,404);
@@ -47,5 +49,8 @@ test('catalogue previews palettes across the whole page and owns a site-local de
  assert.ok(page.includes('data-bathos-palette="deep-water-red"'));
  assert.ok(!page.includes('deployments.json'));
  const preview=await worker.fetch(new Request('https://design.bathos.org/palette-preview.js'));
- assert.ok((await preview.text()).includes('root.dataset.bathosPalette = id'));
+ const previewSource=await preview.text();
+ assert.ok(previewSource.includes('root.dataset.bathosPalette = id'));
+ assert.ok(previewSource.includes('localStorage.setItem(previewKey, id)'));
+ assert.ok(previewSource.includes('localStorage.removeItem(previewKey)'));
 });
