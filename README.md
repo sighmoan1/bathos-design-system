@@ -20,7 +20,9 @@ For existing themes, use `styles/foundation.css`: every token is namespaced `--b
 
 Use semantic versions. Change package.json, rebuild dist, open a PR and run checks. On approved main, create an immutable `vX.Y.Z` GitHub release. The release workflow verifies version/tag agreement, attaches the package archive and deploys the catalogue. Roll back consumers by reverting their version/lockfile PR; roll back the catalogue by deploying the prior release.
 
-The deploy workflow requires repository secret `CLOUDFLARE_API_TOKEN` (Workers Scripts Edit and Zone Read for the Bathos account/zone) and variable `CLOUDFLARE_ACCOUNT_ID`. Initial custom-domain attachment can be managed through the connected Cloudflare API; deployment need not modify other Bathos DNS records.
+The canonical catalogue uses Git-connected Cloudflare Pages (`bathos-design-system`, build `npm test`, output `site-out`). Verified main changes rebuild and deploy automatically using the existing Cloudflare GitHub integration; no new CI deployment secret is required. The Worker configuration is an optional alternative, not the active canonical deployment.
+
+The optional Worker deploy workflow requires repository secret `CLOUDFLARE_API_TOKEN` (Workers Scripts Edit and Zone Read for the Bathos account/zone) and variable `CLOUDFLARE_ACCOUNT_ID`. Initial custom-domain attachment can be managed through the connected Cloudflare API; deployment need not modify other Bathos DNS records.
 
 Consumer update workflows check stable releases on a schedule and on demand. They open one update PR per branch, run consumer verification before requesting adoption, and rebuild/deploy after merge. Update PR creation needs an authorised repository token in `DESIGN_SYSTEM_UPDATE_TOKEN` if repository settings disallow GITHUB_TOKEN-created PRs. A dedicated token also allows downstream PR checks to run: GitHub suppresses most new workflow events created using GITHUB_TOKEN. Never automatically merge a major upgrade. No runtime remote stylesheet or floating `latest` dependency is used.
 
