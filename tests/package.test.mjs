@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
 import {createElement} from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {Button,ButtonLink,Field,Notice} from '../dist/index.js';
@@ -23,4 +24,14 @@ test('catalogue serves expected paths, rejects writes and unknown paths',async()
  assert.equal((await worker.fetch(new Request('https://design.bathos.org/missing'))).status,404);
  assert.equal((await worker.fetch(new Request('https://design.bathos.org/',{method:'POST'}))).status,405);
  assert.equal(await (await worker.fetch(new Request('https://design.bathos.org/',{method:'HEAD'}))).text(),'');
+});
+
+test('catalogue exposes all three named build-time palettes and app pins',async()=>{
+ const css=await readFile(new URL('../styles/palettes.css',import.meta.url),'utf8');
+ const manifest=JSON.parse(await readFile(new URL('../deployments.json',import.meta.url),'utf8'));
+ for(const id of ['deep-water-red','stone-vermilion','ink-teal']) assert.ok(css.includes(`data-bathos-palette="${id}"`));
+ assert.equal(manifest.applications.cultivate.palette,'deep-water-red');
+ assert.equal(manifest.applications.delegate.palette,'stone-vermilion');
+ assert.equal(manifest.applications.cultivate.version,'1.1.0');
+ assert.equal(manifest.applications.delegate.version,'1.1.0');
 });
